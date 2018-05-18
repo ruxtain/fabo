@@ -25,3 +25,7 @@ elasticsearch
 ```
 python manage.py runserver
 ```
+
+demo
+===
+![demo image](https://github.com/ruxtain/fabo/blob/master/demo.png)

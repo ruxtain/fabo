@@ -1,0 +1,325 @@
+{% extends "base.html" %}
+{% load my_filters %}
+{% load static %}
+{% block title %}法宝 - {{ branch.title | capitalize }}{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'myapp/css/branch.css' %}" />
+{% endblock %}
+
+{% block search %}
+{% endblock %}
+
+{% block left_column %}
+
+{% for topic in topics %}
+    <span class="topic"><a target="_blank" href="{% url 'myapp:topic' topic.pk %}">{{ topic.topic_name }}</span>
+{% endfor %}
+
+<br />
+
+<p class="branch-title"><a class="title" href="#">{{ branch.title | capitalize }}</a></p>
+<p><a href="#your-rating"><span class="button pill icon edit" onclick="focusComment()">我來点评</span></a></p>
+<p class="post_info">
+    <span>颁布主席: {{ branch.chairman }}</span>
+    &nbsp;&nbsp;&nbsp;
+    <span>条文来源: </span>
+    <span>
+        <a class="branch-info" target="_blank" href={{ branch.source }}>
+           {{ branch.source|get_domain }}
+        </a>
+    </span>
+    &nbsp;&nbsp;&nbsp;
+    <span class="post_info">生效时间: {{ branch.pub_date | date:'Y年m月d日' }}</span> 
+</p>
+
+<hr /> 
+
+<section class="article"> <!-- 具体的法条内容 -->
+    <br/>
+    {% for article in articles %}
+        <div id="{{ article.num }}" class="anchor"></div>
+        <a class="article" href="{% url 'myapp:article' article.pk %}">
+            {% if article.articlecomment_set.all %}
+                <div class="article debated">{{ article.article_text|safe }}</div>
+            {% else %}
+                <div class="article">{{ article.article_text|safe }}</div>
+            {% endif %}
+        </a>
+    {% endfor %}
+    <br />
+    <br />
+</section>
+
+
+{# 这个class定义在bass.css #}
+<hr class="boundary" />
+
+
+<section class="comment">
+    {% for comment in comments %}
+        <p>
+            <span><img class="avatar" src="{{ comment.user.profile.avatar.url | url_adjustment }}" /></span>
+            <a class="nickname" href="{% url 'myapp:profile' comment.user.username %}" target="_blank">
+                <span class="nickname">{{ comment.user.profile.nickname }}</span>
+            </a>
+            <span class="post_info pub_date">{{ comment.pub_date | date:'y/m/d H:i'}}</span>
+            {% if comment.user.username == user.username %} {# 仅在当前用户和评论者一致时显示 #}
+                <span id='edit-n-del'>
+                    <span id='edit' href="#">修改</span>
+
+
+
+                        <script type="text/javascript">
+
+                        $(document).keypress(function(e){ 
+                            if(e.ctrlKey && e.which == 13 || e.which == 10 || e.which == 13) { 
+                            e.preventDefault();// 这个函数应该是内置的，用于禁止 enter 的输入。本来也是，一个问题，要什么回车！
+                            } 
+                        });
+
+                            $("#edit").click(function(){
+                                if ($("#edit").html()=='修改') {
+                                    $("#comment-text").html("<textarea style='width:470px;height:50px;font-size:14px;resize:vertical;'>{{ comment.text }}</textarea>");
+                                    $("#edit").html('保存');
+                                }
+                                else {
+                                    var new_comment = $("#comment-text").children("textarea").val();
+                                    $("#comment-text").html(new_comment);
+                                    
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/article-comment-ajax-action',
+                                        data: {
+                                                new_comment: new_comment, 
+                                                comment_pk: "{{ comment.pk }}",
+                                                csrfmiddlewaretoken:"{{ csrf_token }}"
+                                           },
+                                    });
+
+                                    $("#edit").html('修改');
+                                }
+                            });
+
+
+                            $("#edit")
+                        </script>
+
+
+
+
+                    <span id="del" href="#">删除</span>
+
+                    <script type="text/javascript">
+                        $("#del").click(function (){
+                            var r = confirm("确认要删除这条评论吗?");
+                            if (r == true) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/article-comment-ajax-action',
+                                    data: {
+                                            action: "del", 
+                                            comment_pk: "{{ comment.pk }}",
+                                            csrfmiddlewaretoken:"{{ csrf_token }}"
+                                       },
+                                });
+                                location.reload(); /*删除完刷新页面, 1。让删掉的评论消失；2.让form激活，以便重新评论*/
+                            }
+                        });
+                    </script>
+
+                </span>
+                <p id="comment-text">{{ comment.text }}</p>
+            {% else %}
+                <p class="comment-text">{{ comment.text }}</p>
+            {% endif %}
+
+
+                <div class="up_down" id="c{{ comment.pk }}"> {# 为了方便抓取，还是得用上 id #}
+                    <span>
+                        <img class="thumb_up" id="u{{ comment.pk }}" onclick="vote(this)" src="{% static 'myapp/img/thumb_up.png' %}">
+                        <span class="counter">{{ comment.thumb_up }}</span>
+                    </span>
+                    <span>
+                        <img class="thumb_down" id="d{{ comment.pk }}" onclick="vote(this)" src="{% static 'myapp/img/thumb_down.png' %}"> 
+                        <span class="counter">{{ comment.thumb_down }}</span>
+                    </span>
+                    &nbsp;&nbsp;&nbsp;
+                    <span class="tip" id="tip-{{ comment.pk }}"></span>
+                </div>
+
+        <hr />
+    {% endfor %}
+
+
+    <script type="text/javascript">
+
+        // add one to the clicked thumb; This is for the fore-end.
+        function plus(obj) {
+            var counter = $(obj).next('.counter');
+            var num = Number(counter.html());
+            counter.html(num + 1);
+        }
+
+        function minus(obj) {
+            var id = $(obj).attr("id")
+            var pk = id.substr(1,); // u or d
+            var vote = id.substr(0,1);
+            if (vote == 'u') {
+                vote = 'd'
+            }
+            else {
+                vote = 'u'
+            }
+            var id = vote + pk
+            var counter = $("#" + id).next('.counter');
+                var span = counter.html();
+                var num = Number(span);
+                counter.html(num - 1);
+        }
+
+        function save(pk, vote, result) {
+            $.ajax ({
+                type: 'POST',
+                url: '/article-comment-ajax-vote',
+                data: { query: 0, pk: pk, vote: vote, result: result, csrfmiddlewaretoken: "{{ csrf_token }}" },
+            });
+        }
+
+
+        // 这个函数用于查询之前有没有点过，并且查询点的是什么。
+        function vote(obj) {
+            var id = $(obj).attr("id");
+            var pk = id.substr(1,);
+            var vote = id.substr(0,1); // determine which vote by its first letter of id
+            $.ajax ({
+                type: 'POST',
+                url: '/article-comment-ajax-vote',
+                data: { query: 1, pk: pk, vote: vote, csrfmiddlewaretoken: "{{ csrf_token }}" },
+                success: function (data) {
+                    if (data=='0') {
+                        plus(obj);
+                        save(pk, vote, data);
+                        $("#tip-"+pk).html("多谢评价！").fadeOut(3000);
+
+                    }
+                    else if (data=='1') {
+                        $("#tip-"+pk).html("你已经点过赞啦").fadeOut(3000);
+                    }
+                    else if (data=='2' || data=='3') {
+                        plus(obj);
+                        minus(obj);
+                        save(pk, vote, data);
+                        $("#tip-"+pk).html("多谢评价！").fadeOut(3000);
+
+                    }
+                    else if (data=='4') {
+                        $("#tip-"+pk).html("用不着踩别人两次吧~").fadeOut(3000);
+                    }
+                    else {
+                        $("#tip-"+pk).html("不可以给自己投票~").fadeOut(3000);        
+                    }
+                } 
+            }); 
+
+        }
+
+    </script>
+
+</section>
+
+<section class="add-comment">
+    <p>发表评论</p>
+
+    <hr />
+
+    {% if can_comment %}
+        <form action="{% url 'myapp:article-comment-action' branch.pk %}" method="post">
+            {% csrf_token %}
+            <textarea id="add-textarea" name="comment"></textarea>
+            <button id="submit-comment" class="button comment icon">提交</button>    
+            <script type="text/javascript">
+
+                $("#submit-comment").click(function() {
+                    if($("#add-textarea").text()=="") {
+                        alert("请输入内容后再提交~");
+                        return false; // 用于阻止提交表单
+                    }
+                });
+
+                $(document).keypress(function(e){ 
+                    if(e.ctrlKey && e.which == 13 || e.which == 10 || e.which == 13) { 
+                    e.preventDefault();// 这个函数应该是内置的，用于禁止 enter 的输入。本来也是，一个问题，要什么回车！
+                    } 
+                });
+            </script>
+        </form>
+    {% else %} {# 不允许评论 #}
+        <form>
+            {# 注意 textarea 里面的空格不会被省略，我间接实现了居中 #}
+            <textarea disabled="disabled" style="opacity: 0.5; background-color:#ddd;" id="add-textarea">{% if logged_in %}
+您已经评价过了{% else %}请登录后评论{% endif %}</textarea>
+        </form>
+    {% endif %}
+</section>
+
+{% endblock %}
+
+
+{% block right_column %}
+{% endblock %}
+
+
+{% block footer %}
+
+<script src="{% static 'myapp/js/jquery.animate-colors.js' %}" type="text/javascript"></script>
+<script type="text/javascript">
+    $("div.anchor").css("bottom", screen.height/4); // 调节高亮框和顶端的距离,数字越大，距离越小
+    function spotlight(e) {
+        e.css("background-color", "#ADFF2F");
+        e.css("color", "#000");
+        e.animate({'backgroundColor':'#ffffff', 'color':'#000'}, 2000); 
+        e.mouseover(function() {
+            $(this).css("background-color", "#efffef");
+        });
+        e.mouseout(function() {
+            $(this).css("background-color", "#fff");
+        });
+    }
+    $('#search-box').keyup(function() {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ');
+        if (val != '') {
+            anchor = "#" + val;
+            location.hash = anchor;
+            anchor = $(anchor).next("a.article").children(".article");
+            spotlight(anchor);
+        };
+    });
+    $('#search-box').keydown(function(e) {
+        if (e.which == 13) {
+            var query = $(this).val();
+            var url = "/search?q=" + query;
+            location.href = url;            
+        }
+    });
+    $(function() {
+        hash = location.hash; // 从articlePage 回到 articlePage 时读取
+        if (hash != "") {
+            anchor = $(hash).next("a.article").children(".article");
+            spotlight(anchor);
+        }
+    });
+
+    // 点评按钮
+    function focusComment() {
+        $("textarea").focus();
+    }
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+

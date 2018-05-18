@@ -1,0 +1,80 @@
+/*搜索结果数量*/
+p.result-count {
+    color: #999;
+    font-family: Helvetica;
+    font-size: 13px;
+}
+
+/*没有搜到结果*/
+div.sorry-holder {
+    width: 600px;
+    margin: 0 auto;    
+    padding: 0;
+    text-align: center;
+}
+img.sorry {
+    display: block;
+    width: 300px;
+    margin: 0 auto; 
+}
+
+/*搜索结果法条名*/
+a.branch {
+    font-size: 20px;
+}
+a:hover {
+    background-color: #e0fde0;
+    opacity: 0.9;
+}
+
+/*法条的生效日期*/
+span.pub_date {
+    font-family: Helvetica;
+    font-size: 15px;
+}
+
+/*搜索到的法条*/
+a.article {
+    display: block;
+    font-size: 15px;
+}
+
+.article-source {
+    margin-top: -10px;
+    font-size: 14px;
+    color: #999;
+}
+
+/*高亮匹配到的部分*/
+/*谭哥原创*/
+.highlighted {
+    color: red;
+}
+
+
+/*页码*/
+#pagination { /* 整个页码块 */
+    padding-top: 30px;
+    margin: 0 auto;
+    width: 230px;
+    color: #999;
+    text-align: center;
+}
+.page {
+    font-family: Helvetica;
+    font-size: 16px;
+    color: #000;
+}
+/*输入框*/
+.current-page {
+    text-align: center;
+    width: 35px;
+    outline: none;
+}
+
+
+
+
+
+
+

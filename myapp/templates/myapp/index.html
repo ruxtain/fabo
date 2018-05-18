@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load my_filters %}
+{% load static %}
+{% block title %}首页 - 法宝{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "myapp/css/index.css" %}" />
+{% endblock %}
+
+{% block search %}
+{% endblock %}
+
+{% block left_column %}
+    <div class="pic_frame search-section">
+        <img class="left-pic" src="{% static "myapp/img/banner.jpg" %}" alt="" />
+    </div>
+    <h1 class="slogan">
+        <img src="{% static 'myapp/icon/scale.ico' %}"> 正义女神在微笑 <img class="banner" src="{% static 'myapp/icon/scale.ico' %}">
+    </h1>
+    {% for branch in branches %}
+
+        <section class="search-section">
+                <hr class="boundary" />
+
+                <a class="title-and-abstract" href="{% url 'myapp:branch' branch.pk %}">
+                    <span class="branch-title">{{ branch.title }}<img class="icon-book" src="{% static 'myapp/icon/book.png' %}"></span>
+                    <p class="abstract">
+                        {{ branch.intro }}
+                        <span class="read-more">呈现完整法条</span>
+                    </p>
+                </a>
+                <p class="info">
+                    {# raty函数理由的内函数设置data-score为一个域，用于放置分数 #}
+                    <div class="branch-info">
+                        <span class="datetime">生效时间: {{ branch.pub_date | date:'Y年m月d日' }}</span> 
+                    </div>
+                    {% for topic in branch.topics.all %}
+                        <span class="topic"><a href="{% url 'myapp:topic' topic.pk %}">{{ topic }}</a></span>
+                    {% endfor %}
+                </p>
+
+
+        </section>
+    {% endfor %}
+    <hr class="boundary" />
+{% endblock %}
+
+
+{% block right_column %}
+{% endblock %}
+{% block footer %}
+    <script type="text/javascript">
+        var $secs = $('.search-section');
+        $('#search-box').keyup(function() {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ');
+        $secs.show().filter(function() {
+            var text = $(this).text().replace(/\s+/g, ' ');
+            return !~text.indexOf(val);
+            }).hide();
+        });
+    </script>
+{% endblock %}

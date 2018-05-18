@@ -1,0 +1,228 @@
+/*苹果御用字体*/
+@font-face {
+   font-family: 'HelveticaNeue';
+   src: url('../fonts/HelveticaNeue.otf'); 
+} 
+@font-face {
+   font-family: 'HelveticaNeueBold';
+   src: url('../fonts/HelveticaNeueBold.otf'); 
+} 
+
+/*文章标题*/
+p.branch-title {
+    font-size: 24px;
+    font-family: Georgia;
+    color: #000;
+}
+
+.branch-title:selection{color:#fff;background:#ff5e2c;}
+.branch-title::-moz-selection{color:#fff;background:#ff5e2c;}
+.branch-title::-webkit-selection{color:#fff;background:#ff5e2c;}
+
+a.title {
+    text-decoration: none;    
+}
+
+/*文章发布时间*/
+span.datetime {
+    font-size: 14px;
+    color: #aaa;
+    font-family: verdana;
+}
+
+/*文章评分，用星星表示*/
+span.rating {
+    color:#f0f;
+}
+
+
+/* 文章摘要的话题 */
+span.topic {
+    float:left;
+}
+
+/*定位句子的anchor 句子头顶的那个隐形的div*/
+div.anchor {
+    position: relative; 
+    height: 1px;
+}
+
+/*句子(div和它的children)的样式，本质是超链接*/
+a.article:link {
+    color:black;
+    text-decoration: none;
+} 
+a.article:hover {
+    color:black;
+} 
+a.article:active {
+    color:green;
+    text-decoration: none;
+
+} 
+a.article:visited {
+    color:#000;
+    text-decoration: none;
+} 
+
+div.article:hover {
+    background-color: #efffef;
+}
+
+div.article {
+    padding: 9px;
+    border-radius: 10px;
+}
+
+.article p {
+    font-size: 16px;
+    font-family: 宋体;
+    text-indent: 2em;
+    line-height: 1.3em;
+}
+
+.article span {
+    font-size: 18px;
+    font-weight: 200;
+}
+
+/*句子里面的链接 也就是链接中的链接 */
+
+.inner {
+    font-weight: 800;
+}
+
+.inner:hover {
+    text-decoration: underline;
+}
+
+/*被讨论过的句子有所不同*/
+.debated {
+    color: #556802;
+}
+
+/*文章的作者和来源网页*/
+.post_info {
+    font-family: verdana;
+    font-size: 12px;
+    color: #aaa;
+}
+
+.branch-info:link {
+    color: #aaa;
+}
+.branch-info:visited {
+    color: #aaa;
+}
+
+
+
+/*评论的内容*/
+section.comment {
+    font-family: verdana;
+    font-size: 14px;
+    color: #222;
+}
+
+.comment-text, #comment-text {
+    padding-top:5px;
+    padding-left:30px;
+    padding-right:20px;
+}
+
+
+/*评论的赞和踩*/
+.up_down {
+
+}
+
+img.thumb_down {
+    position: relative;
+    top:6px;
+    height: 20px;
+    cursor: pointer;
+}
+
+img.thumb_up {
+    position: relative;
+    top:1px;
+    height: 20px;
+    cursor: pointer;
+
+}
+
+/*评论发表时间 同时也继承了另一个类 post-info */
+span.pub_date {
+    position: relative;
+    top:4px;
+    left: 10px;
+}
+
+/*修改（编辑）和删除评论*/
+#edit-n-del {
+    float: right;
+    font-size: 12px;
+}
+#edit-n-del span {
+    color: #bbb;
+    position: relative;
+    cursor: pointer;
+}
+
+/*提示信息*/
+.tip {
+    font-size: 12px;
+}
+
+/* 评论者的昵称 */
+
+span.nickname {
+    font-family: Georgia;
+    color: #000;
+    position: relative;
+    top:3px;
+    left:8px;
+}
+
+a.nickname:visited,a.nickname:link {
+    text-decoration: none;
+}
+a.nickname:hover {
+    text-decoration: underline;
+}
+
+/*评论者的头像*/
+
+img.avatar {
+    width:30px;
+    height: 30px;
+    position: relative;
+    float: left;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+}
+
+/*添加评论*/
+#add-textarea {
+    width: 99%;
+    height: 100px;
+    font-size: 16px;
+    resize: none;
+    border: solid 1px #ddd;
+    outline: none;
+}
+
+/*发表评论的部分*/
+/*用户打星星*/
+#your-rating {
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+/*提交按钮*/
+#submit-comment {
+    float: right;
+    position: relative;
+    bottom: 155px;
+}

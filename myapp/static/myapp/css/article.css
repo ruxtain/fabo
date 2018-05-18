@@ -1,0 +1,174 @@
+/*按照自顶向下的顺序铺设*/
+
+/*行距*/
+.answer {
+    line-height: 10px;
+}
+.answer-text {
+    line-height: 20px;
+}
+
+/* 文章的话题 */
+span.topic {
+    background-color:#eeeed1;
+    padding: 3px;
+    margin-left: 5px;
+    margin-right:5px;
+    color: #888;
+}
+
+/*法条*/
+.article-content {
+    line-height: 25px;
+    padding-top: 15px;
+    font-family: Songti, 宋体, Helvetica;
+}
+
+/*法条/标题/span*/
+.article-content span {
+    font-size: 20px;
+}
+
+/*法条/内容/p*/
+.article-content p {
+    font-size: 17px;
+    text-indent: 2em;
+}
+
+/*辅助按钮、链接、计数器*/
+
+a.helper {
+    text-decoration: none;
+}
+
+#comment-counter {
+    font-family: Helvetica, verdana;
+    padding-top: 7px;
+    float: right;
+    position: static;
+    font-size: 16px;
+}
+
+.brand {
+    font-size: 18px;
+    color: #335533;
+}
+
+/*标准导航字/span*/
+.brand span {
+    font-size: 15px;
+}
+
+p.tip {
+    color: #bbb;
+    font-size: 13px;
+    font-family: verdana;
+
+}
+
+span.review:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ************** 问题 **************** */
+
+p.question {
+    font-size: 17px;
+    font-family: sans-serif;
+    color: #222;
+}
+
+a.question:link {
+    text-decoration: none;
+    color: #111;
+}
+p.question:hover {
+    text-shadow: #88a 0px 0px 10px;
+}
+
+/* ************** 答者绍介 **************** */
+
+a.poster {
+    text-decoration: none;
+    color: #111;
+}
+
+a.poster:hover{
+    text-decoration: underline;
+}
+
+.nickname {
+    font-size: 15px;
+    font-family: helvetica;
+}
+
+.brief_intro {
+    font-size: 15px;
+    color: #999;
+}
+
+/* ************** 回答 **************** */
+p.answer-abstract {
+    font-size: 15px;
+}
+
+.answer-abstract a {
+    text-decoration: none;
+    color: #222;
+}
+
+
+
+/* ************** 编辑器 **************** */
+
+.editor {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    outline: none; /* 选中后不再高亮输入框 */
+    font-size: 16.5px;
+    border:solid 1px #bbb;
+    width: 96.5%;
+}
+
+.question-title {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    height: 20px;
+    padding: 10px;
+    border-bottom: none;
+
+}
+
+.description {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    height: 200px;
+    resize: none;
+    padding: 10px;
+}
+
+
+/*问题提交按钮*/
+#post-button {
+    position: relative;
+    bottom:5.5px;
+    border-top-left-radius: 0px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

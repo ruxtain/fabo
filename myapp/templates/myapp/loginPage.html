@@ -1,0 +1,95 @@
+{% extends "user.html" %}
+{% load static %}
+{% load my_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block title %}登录 - 法宝{% endblock %}
+{% block js %}
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+
+
+    // 提交列表时触发检查机制
+    $("form").submit(function(){
+        var p1=new RegExp(/[0-9a-zA-Z\-_]{4,16}/); //用户名
+        var p2=new RegExp(/[0-9a-zA-Z\-_\.]{8,16}/); //密码
+        if (p1.test($("#username").val())) {
+            if (p2.test($("#password").val())) {
+                return true;
+            }
+            else {
+                $("#tip").html("<span class='red'>密码：字母,数字,下划线,横线和点,8-16字符。</span>");
+                return false;
+                }
+            }
+            else {
+                $("#tip").html("<span class='red'>用户名：字母、数字、下划线、短线，4-16字符。</span>");
+                return false; // 中断submit事件
+            }
+        
+    });
+});
+
+</script>
+
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "myapp/css/login.css" %}" />
+{% endblock%}
+
+
+{% block body %}
+
+    <div id="content">
+        <div id="logo">
+            <p>=￣ω￣= </p>
+        </div>
+
+        <!--  登录面板    -->
+        <div id="panel">
+            <!-- logo's name -->
+
+            <p id="logo-name">法 宝</p>
+
+            <!--  账号和密码组    -->
+            <form action="{% url 'myapp:login-action' %}" method="post">
+                {% csrf_token %}
+                <div class="inputs">
+                    <input id="username" class="txt_input" name="username" placeholder=" 用户名">
+                    <input id="password" class="txt_input" name="password" placeholder=" 密码" type="password">
+                    <p id="tip" class="tip grey">{{ error_message | safe }}</p>
+
+                </div>
+
+                <!--  按钮组    -->
+
+                <div id="buttons">
+                        <button id="login" class="button icon approve big">登录</button>
+                        <a href="{% url 'myapp:signup' %}" id="signup" class="button icon user danger big">注册</a>
+                </div>
+
+                <!-- 辅助选项 -->
+                
+                <div id="help">
+                        <input id="remember" name="remember" type="checkbox"/>
+                        <label id="remember-label" for="remember">记住我</label>
+                        <a id="forgot" href="">忘记密码？</a>
+                </div>
+                
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+

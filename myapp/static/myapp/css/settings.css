@@ -1,0 +1,87 @@
+section {
+}
+
+/*返回个人资料按钮*/
+#back {
+    float: right;
+}
+
+/*头像*/
+ 
+#preview-avatar {
+    margin: 20px 20px 20px 0;
+    height:100px;
+    width: 100px;   
+    border-radius: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+}
+
+#upload-button {
+    position: relative;
+    top:-64px;
+    left:50px;
+}
+
+#hidden-upload-button {
+    display: none;
+}
+
+
+/*输入框 */
+.input-frame {
+    text-align: center;
+    height: 25px;
+    font-size: 17px;
+    font-family: serif;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-color: #eee;
+    border-bottom: 1px solid #dda; 
+}
+
+span.label {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+/*英文全名*/
+#first_name {
+    width: 120px;
+}
+#last_name {
+    width: 90px;
+}
+
+/*极简介绍*/
+#brief_intro {
+    width: 260px;
+}
+
+/*最后一个多行文本*/
+
+#long_intro {
+    background-image: url("../img/textarea.png");
+    resize: none;
+    text-align: left;
+    width: 500px;
+    height: 113px;
+    line-height: 29px;
+}
+
+/*保存修改按钮*/
+#buttons {
+    position: relative;
+    top: 20px;
+}
+
+/*radio 单选框*/
+#radio {
+    display: inline;
+    position: relative;
+    left:50px;
+
+}
+
+

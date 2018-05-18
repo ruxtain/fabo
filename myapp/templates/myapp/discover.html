@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load my_filters %}
+{% load static %}
+
+{% block title %}发现 - 句萌{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static "myapp/css/topic.css" %}" />
+    <link rel="stylesheet" href="{% static "myapp/css/font-awesome.css" %}" />
+{% endblock %}
+
+{% block left_column %}
+
+按照用户的兴趣随机放置文章，是谓「发现」。
+<br />
+目前文章太少，我还没写这个页面。
+
+{% endblock %}
+{% block right_column %}
+{% endblock %}

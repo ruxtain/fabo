@@ -1,0 +1,142 @@
+p {
+    line-height: 22px;
+} 
+
+/*最新文章四个字*/
+h1.slogan {
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: 100;
+    font-family: 楷体, Kaiti, sans-serif;
+}
+
+/* 左侧大图 */
+.left-pic {
+    border-radius: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+}
+
+/* 法条摘要or简介 */
+
+a.title-and-abstract {
+    text-decoration: none;
+    color: #000;
+}
+
+/*摘要小图标*/
+.icon-book {
+    position: relative;
+    top: 7px;
+}
+
+span.branch-title {
+    font-family: Georgia, 宋体, Songti;
+    position: relative;
+    top: 5px;
+    padding: 5px;
+    font-size: 20px;
+    text-decoration: none;
+    color: #000;
+} 
+
+span.branch-title:hover {
+    background-color: #e0fae0;
+}
+
+p.abstract {
+    font-family: Georgia, 宋体, Songti;
+    font-size: 16px;
+}
+
+p.abstract:visited {
+    color: #000;
+}
+
+/*整个 rate date 和 topic 那一横行*/
+.info {
+    margin-top:-15px;
+}
+
+
+.branch-info {
+    display: inline;
+    position: relative;
+    top:8px;
+}
+
+/*文章发布时间, ‘尚无评分’几个字也用这个样式*/
+span.datetime {
+    font-size: 14px;
+    color: #aaa;
+}
+
+/*文章评分，用星星表示*/
+span.rating {
+    color:#f0f;
+}
+
+span.stars {
+    position: relative;
+    top: 3px;
+}
+
+/*阅读更多小按钮*/
+.read-more {
+    padding: 5px 5px 5px 5px;
+    color: #27408B;
+    font-size: 13px;
+}
+
+/*悬停整个摘要就会导致显示全文字样的高亮*/
+p.abstract:hover .read-more {
+    background-color: #e0fae0;
+}
+
+/* 文章摘要的话题 */
+span.topic {
+    float:right;
+    position: relative;
+    top: 6px;
+}
+
+/*句子的样式，本质是超链接*/
+a.sentence:link {
+    color:black;
+    text-decoration: none;
+} 
+a.sentence:hover {
+    color:black;
+} 
+a.sentence:active {
+    color:green;
+    text-decoration: none;
+
+} 
+a.sentence:visited {
+    color:#000;
+    text-decoration: none;
+} 
+p.sentence {
+    font-size: 18px;
+}
+
+/*以下针对DetailPage*/
+/*文章的作者和来源网页*/
+p.post_info {
+    font-size: 12px;
+    color: #aaa;
+    font-style: italic;
+}
+
+
+
+
+
+
+
+
+
+
+
+

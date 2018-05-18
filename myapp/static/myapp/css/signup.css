@@ -1,0 +1,92 @@
+/*背景和整个网站一致，保持这个风格*/
+body{
+    background-color:#eee ;
+    font-size: 20px;
+}
+
+#content {
+}
+
+/*用于承载整个输入区域和按钮的控制板*/
+#panel {
+    /*这招只适合有固定宽度的元素居中*/
+    margin: auto;
+    background: #fff;
+    position: relative;
+    top: -30px;
+    /*高度和宽度根据背景图片的大写设定，自带圆边效果 */
+    width: 403px;
+    height: 502px;
+    border-radius: 9px;
+    box-shadow: #999 0px 0px 9px;
+    -webkit-box-shadow: #999 0px 0px 9px;
+    -moz-box-shadow: #999 0px 0px 9px;
+}
+
+/*logo and stuff*/
+#logo {
+    font-size: 50px;
+    position: relative;
+    text-align: center;
+    top: -10px;
+}
+
+#logo-name {
+    font-family: 宋体;
+    position: relative;
+    text-align: center;
+    top: 30px;
+    left: -10px;
+    font-size: 30px;
+}
+
+/*输入框*/
+.input-group {
+    position: relative;
+    left: 60px;
+    top:30px;
+}
+
+input {
+    display: block;
+    background-color: transparent;
+    border-radius: 3px;
+}
+
+
+/* 抄袭别人的输入框样式 */
+input.txt_input:focus{ transition:border linear .2s,box-shadow linear .2s; -moz-transition:border linear .2s,-moz-box-shadow linear .2s; -webkit-transition:border linear .2s,-webkit-box-shadow linear .2s; outline:none;border-color:rgba(173,173,173.75); box-shadow:0 0 8px rgba(173,173,173,.5); -moz-box-shadow:0 0 8px rgba(173,173,173,.5); -webkit-box-shadow:0 0 8px rgba(173,173,173,3); border:1px solid #7cccec;}
+input.txt_input{ width:260px; height:36px; border:1px solid #cad2db; padding:0 5px; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; line-height:36px; margin-bottom:10px; font-size:14px; color:#717171; font-family:Arial;}
+
+/*提示*/
+.red {
+    color: #a11;
+}
+.grey {
+    color:#333;
+}
+
+.green {
+    color:#1a1;
+}
+
+.tip {
+    font-size: 13px;
+    position: relative;
+    top: -4px;
+    height:10px;
+    display: block;
+    height: 13px;
+}
+
+/*各种按钮*/
+#buttons {
+    position: relative;
+    left:68px;
+    top:50px;
+}
+
+#login {
+    margin-right: 10px;
+}
+

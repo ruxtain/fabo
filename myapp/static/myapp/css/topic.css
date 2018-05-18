@@ -1,0 +1,23 @@
+/*标题的文字*/
+.topic {
+    background-color:#eeeed1;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right:5px;
+    color: #888;
+    position: relative;
+}
+
+.topic_icon {
+    width: 30px;
+    position: relative;
+    top: 7px;
+}
+
+/*超链接不需要下划线*/
+a:link {
+    text-decoration: none;
+}
+a:hover {
+    text-shadow: #88a 0px 0px 10px;
+}

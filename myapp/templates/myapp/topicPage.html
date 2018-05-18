@@ -1,0 +1,26 @@
+{# 这个网页是显示某个具体话题的热门文章 #}
+{% extends "base.html" %}
+{% load my_filters %}
+{% load static %}
+
+{% block title %}话题 - 句萌{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static "myapp/css/topic.css" %}" />
+    <link rel="stylesheet" href="{% static "myapp/css/font-awesome.css" %}" />
+{% endblock %}
+
+{% block left_column %}
+
+<p>这里用于呈现某个话题近期的热门话题~</p>
+<p>
+    <span><img class="topic_icon" src="{{ topic.topic_icon.url | url_adjustment }}"></span>
+    <span class="topic"><a href="{% url 'myapp:topic' topic.pk %}" target="_blank">{{ topic.topic_name }}</a></span>
+    <span>{{ topic.topic_text }}</span>
+</p>
+{% for article in topic.branch.all %}
+    <p><a target="_blank" href="{% url 'myapp:article' article.pk %}">{{ article.title }}</a></p>
+{% endfor %}
+
+{% endblock %}
+{% block right_column %}
+{% endblock %}

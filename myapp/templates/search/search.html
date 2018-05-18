@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load my_filters %}
+{% block title %}法宝 - 検索{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static "myapp/css/search.css" %}" />
+    <script type="text/javascript">
+        {% if page.paginator.count == 1 %} {# 只有一个搜索结果时直接跳转，这个功能好不好值得研究 #}        
+            {% for result in page.object_list %}
+                {% if result.object.title != None %}
+                    {% for result in page.object_list %}
+                        location.href = "{% url 'myapp:branch' result.object.pk %}" //直接branch
+                    {% endfor %}            
+                {% else %}
+                    {% for result in page.object_list %}
+                        location.href = "{% url 'myapp:branch' result.object.branch.pk %}#{{ result.object.num }}" //跳到法条
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        $(document).ready(function() {
+            $('#search-box').attr('placeholder', '');
+            $('#search-box').val("{{ query }}");  
+            $('#search-box').click(function() {
+            $('#search-box').select();
+            });
+        })
+    </script>
+{% endblock %}
+
+{% block left_column %}
+        {% if query %}
+            <h2>检索 “{{ query | highlight:query | safe }}” 的结果</h2>
+            <p class="result-count">法宝为您找到 {{ page.paginator.count }} 个相关结果</p>
+            <hr class="boundary">
+            {% for result in page.object_list %}
+                {% if result.object.title != None %} {# this is a branch #}
+                    <p>
+                        <a class="branch" target="_blank" href="{% url 'myapp:branch' result.object.pk %}">《{{ result.object.title }}》</a>
+                        <span class="pub_date">{{ result.object.pub_date | date:'Y年m月d日' }}</span>
+                    </p>
+                {% else %} {# this is an article #}
+                <a class="article" target="_blank" href="{% url 'myapp:branch' result.object.branch.pk %}#{{ result.object.num }}">
+                    <p>
+                        「{{ result.object.article_text | no_html | highlight:query | safe }}」
+                    </p>
+                    <p class="article-source">来自：《{{ result.object.branch.title }}》</p>
+                </a> 
+                <hr>
+                {% endif %}  
+            {% empty %}
+                    <div class="sorry-holder">
+                        <img class="sorry" src="{% static 'myapp/icon/search/sorry.png' %}" >
+                        <p>抱歉，未能找到结果！</p>
+                    </div>
+            {% endfor %}
+
+
+            {% if page.has_previous or page.has_next %}
+                <div id="pagination">
+                    {% if page.has_previous %}<a class="page" href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; 上一页{% if page.has_previous %}</a>{% endif %}
+                    <input type="text" class="page current-page" value="{{ page.number }}" /><span class="page"> / {{ page.paginator.num_pages }}</span>
+                    {% if page.has_next %}<a class="page" href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}下一页 &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+
+            {% else %} {# 不足一页的搜索结果，为了避免用户以为没有加载完，写一句提示 #}
+                <div id="pagination">
+                    以上です
+                </div>
+            {% endif %}
+
+
+        {% else %}
+             搜一下
+        {% endif %}
+{% endblock %}
+
+{% block footer %}
+    <script type="text/javascript">
+        //聚焦就清空，以便输入
+        $("input.current-page").click(function() {
+            $(this).select();
+            $(this).css("background-color", "#e0fde0");
+        });
+        //只允许输入数字，并且这个数字不能比总页数大
+        $("input.current-page").keyup(function () { 
+            this.value = this.value.replace(/[^0-9\.]/g,'');
+            var num_pages = parseInt({{ page.paginator.num_pages }});
+            if (this.value > num_pages) {
+                this.value = "";
+            }
+        });
+        //输入页码，回车即可跳转
+        $("input.current-page").keydown(function(e) {
+            if (e.which == 13) {
+                var page = $(this).val();
+                var url = "?q={{ query }}&page=" + page;
+                location.href = url;
+            }
+        });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% load my_filters %}
+{% load static %}
+{% block title %}{{ other.profile.nickname }} - 句萌{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "myapp/css/profile.css" %}" />
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    $(function(){
+        $('#follow').click(function(){
+
+            var fans_count = parseInt($("#fans_count").html())
+
+            if($('#follow').html()=="已关注") {
+                $("#follow").html("关注");
+                $("#follow").removeClass("disable");
+                $("#fans_count").html(fans_count-1);
+                $.ajax({
+                    type: "POST",
+                    url: "/follow-ajax-action",
+                    /* the content of the POST is 1(following) or 0(not following), no space plz */
+                    data: {follow: 0, other: "{{ other.username }}", csrfmiddlewaretoken :"{{ csrf_token }}"},
+                });
+            } 
+            else {
+                $("#follow").html("已关注");
+                $("#follow").addClass("disable");
+                $("#fans_count").html(fans_count+1);
+                $.ajax({
+                    type: "POST",
+                    url: "/follow-ajax-action",
+                    data: {follow: 1, other: "{{ other.username }}", csrfmiddlewaretoken :"{{ csrf_token }}"},
+                });
+            }
+        });
+
+    });
+});
+
+function lightOff() {
+    $('#light').addClass('off');
+    $('#light').css("display", "block");
+    $('#preview-avatar').css("display", "block");
+}
+
+function lightOn() {
+    $('#light').removeClass('off');
+    $('#light').css("display", "none");
+    $('#preview-avatar').css("display", "none");
+}
+
+</script>
+{% endblock %}
+
+{% block left_column %}
+
+<div id="light" class="off" onclick="lightOn()">
+</div>
+<img id="preview-avatar" src='{{ profile.get_avatar_url | url_adjustment }}' />
+
+{% if user.username == other.username %} {# 自己看自己资料页和别人看自己资料页是不同的 #}
+
+    <section id="user-info">
+    <img onclick="lightOff()" id="profile-avatar" src='{{ profile.get_avatar_url | url_adjustment }}' />
+    <p id="nickname">
+        {{ profile.nickname | capitalize }}
+
+        <a id="settings" href="{% url 'myapp:settings' %}" class="button icon settings big">
+            完善资料
+        </a>
+    </p>
+
+    <p id="full-name">
+    {% if other.first_name %}{# get_FOO_display 是内置tag，用于显示 verbose version #}
+        <span>{{ other.first_name }}</span> 
+    {% else %}
+        <span>John</span>
+    {% endif %}
+    {% if other.last_name %}
+        <span>{{ other.last_name }}</span>
+    {% else %}
+        <span>Doe</span>
+    {% endif %}
+    </p>
+
+    {% if profile.brief_intro %}
+        <p>{{ profile.brief_intro }}</p>
+    {% else %}
+        <p>还没来得及介绍</p>
+    {% endif %}
+
+    <p>{{ profile.get_gender_display }}&nbsp;,&nbsp;&nbsp;情感状态{{ profile.get_status_display }}
+
+    {% if profile.education %}
+        <span>, 来自{{ profile.education }}</span>
+    {% else %}
+        <span>不要忘记填写你的母校嘛</span>
+    {% endif %}
+
+    </p>
+
+    {% if profile.long_intro %}
+        <p>{{ profile.long_intro }}</p>
+    {% else %}
+        <p>我是一个飘逸的{{ profile.get_gender_display}}子。</p>
+    {% endif %}
+
+    {% if profile.topics.all %}
+    <p>
+        <span>你关注的话题</span>
+        <span>
+            {% for topic in profile.topics.all %}
+                <a class="topic" href="{% url 'myapp:topic' topic.pk %}" target="_blank">
+                    {{ topic.topic_name }}
+                </a>
+            {% endfor %}
+        </span>
+    </p>
+    {% endif %}
+
+    {% if profile.fans.all %}
+        <p>关注你的人：<span id="fans_count">{{ profile.fans.all.count }}</span>
+            <span>
+                {% for fan in profile.fans.all %}
+                    <a href="{% url 'myapp:profile' fan.user.username %}" target="_blank">
+                        <img class="fans" src='{{ fan.get_avatar_url | url_adjustment }}' />
+                    </a>
+                {% endfor %}
+            </span>
+
+        </p>
+    {% else %}
+        <p>暂时还没有粉丝</p>
+    {% endif %}
+    <hr />
+
+    </section>
+
+{# ######################################################################## #}
+{% else %}   {# ###########以上是自己看自己，以下是看别人####################### #}
+{# ######################################################################## #}
+
+    <section id="user-info">
+    <img id="profile-avatar" onclick="lightOff()" src='{{ profile.get_avatar_url | url_adjustment }}' />
+    <p id="nickname">
+        {{ profile.nickname | capitalize }}
+        <span id="fan_msg" class="button-group">
+
+        {% if is_fan %}
+            <a id="follow" class="button icon like big disable">已关注</a>
+        {% else %}
+            <a id="follow" class="button icon like big">关注</a>
+        {% endif %}
+            <a id="msg" href="{% url 'myapp:message' other.pk %}" class="button icon mail big">私信</a>
+        </span>
+    </p>
+
+    <p id="full-name">
+    {% if other.first_name %}{# get_FOO_display 是内置tag，用于显示 verbose version #}
+        <span>{{ other.first_name }}</span> 
+    {% else %}
+        <span>John</span>
+    {% endif %}
+    {% if other.last_name %}
+        <span>{{ other.last_name }}</span>
+    {% else %}
+        <span>Doe</span>
+    {% endif %}
+    </p>
+
+    {% if profile.brief_intro %}
+        <p>{{ profile.brief_intro }}</p>
+    {% else %}
+        <p>还没来得及介绍</p>
+    {% endif %}
+
+    <p>{{ profile.get_gender_display }}&nbsp;,&nbsp;&nbsp;{{ profile.get_status_display }}</p>
+
+    {% if profile.education %}
+        <p>{{ profile.education }}</p>
+    {% else %}
+        <p>你可以猜猜我的学校</p>
+    {% endif %}
+
+    {% if profile.long_intro %}
+        <p>{{ profile.long_intro }}</p>
+    {% else %}
+        <p>我是一个飘逸的{{ profile.get_gender_display}}子。</p>
+    {% endif %}
+    {% if profile.fans.all %}
+        <p>关注ta的人：<span id="fans_count">{{ profile.fans.all.count }}</span></p>
+    {% else %}
+        <p></p>
+    {% endif %}
+    <hr />
+
+
+    </section>
+{% endif %}
+{# 接下来是用户的动态。公开他的赞和回答，以免他乱喷。这样会影响他的信誉。my word is my bond. #}
+    
+    <p class="brand">最新动态</p>
+    <hr />
+    {% for event in events %}
+        <p>{{ event|event_display|no_html }}</p>
+    {% endfor %}
+
+{% endblock %}
+
+
+{% block right_column %}
+{% endblock %}

@@ -1,0 +1,203 @@
+{% extends "user.html" %}
+{% load static %}
+{% load my_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block title %}
+    注册 - 句萌
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    function check(reg, element) {
+        // 接收正则表达式和用于提取element的字符串，例如 '#username'
+        var p=new RegExp(reg);
+        var flag=p.test($(element).val());
+        return flag;
+    };
+
+    $(function(){ 
+        $('#username').blur(function(){
+            $.ajax({
+                type: "POST",
+                url: "/signup-ajax-action",
+                data: {username:$("#username").val(), csrfmiddlewaretoken:"{{ csrf_token }}"},
+                success: function(data){
+                    if ($("#username").val()=='') {
+                        return false; // 输入框为空的时候，什么都不显示。
+                    }
+                    else if (check(/[0-9a-zA-Z\-_]{4,16}/, '#username')) {
+                        if (data=="true") {
+                            $("#tip-username").html("<span class='green'>恭喜，这个用户名可用。</span>");
+                        }
+                        else {
+                            $("#tip-username").html("<span class='red'>不好意思，已经有人注册这个用户名了。</span>");
+                        }
+                    }
+                    else {
+                        $("#tip-username").html("<span class='red'>请用英语字母、数字、下划线、短线，4-16字符。</span>")
+                    }
+                }
+            });
+        });
+    });
+
+    $(function(){ 
+        $('#email').blur(function(){
+            $.ajax({
+                type: "POST",
+                url: "/ajax",
+                data: {username:$("#email").val(), csrfmiddlewaretoken:"{{ csrf_token }}"},
+                success: function(data){
+                    if ($("#email").val()=='') {
+                        return false; // show nothing
+                    }
+                    else if (check(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/, "#email")) {
+                        if (data=="true") {
+                            $("#tip-email").html("<span class='green'>恭喜，该邮箱可以注册。</span>");
+                        }
+                        else {
+                            $("#tip-email").html("<span class='red'>不好意思，这个邮箱已被注册。</span>");   
+                        }
+                    } 
+                    else {
+                        $("#tip-email").html("<span class='red'>请输入正确的邮箱地址。</span>");   
+                    }
+                }
+            });
+        });
+    });
+
+
+
+});
+
+$(document).ready(function(){
+
+
+    // 提交列表时触发检查机制
+    $("form").submit(function(){
+        var p1=new RegExp(/[0-9a-zA-Z\-_]{4,16}/); //用户名
+        var p2=new RegExp(/[0-9a-zA-Z\-_\.]{8,16}/); //密码
+        var p3=new RegExp(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/); //邮箱
+        if (p1.test($("#username").val())) {
+                if (p2.test($("#password1").val())) {
+                    if ($("#password1").val()==$("#password2").val()) {
+                        if (p3.test($("#email").val())) {
+                                return true;
+                        }
+                        else {
+                            $("#tip-email").html("<span class='red'>请输入正确格式的邮箱。</span>");
+                            return false;
+                        }
+                    }
+                    else {
+                        $("#tip-password2").html("<span class='red'>两次密码要输入一致哦。</span>");
+                        return false;
+                    }
+                }
+                else {
+                    $("#tip-password1").html("<span class='red'>请用字母,数字,下划线,横线和点,8-16字符。</span>");
+                    return false;
+                }
+            }
+            else {
+                $("#tip-username").html("<span class='red'>请用英语字母、数字、下划线、短线，4-16字符。</span>");
+                return false; // 中断submit事件
+            }
+
+    });
+});
+
+$(document).ready(function(){
+    $("#username").focus(function(){
+        $("#tip-username").html("请用英语字母、数字、下划线、短线，4-16字符。");
+    });
+    $("#username").blur(function(){
+        $("#tip-username").html(""); 
+    });
+
+    $("#password1").focus(function(){
+        $("#tip-password1").html("请用字母、数字、下划线、短线和点，8-16字符。");
+    });
+    $("#password1").blur(function(){
+        $("#tip-password1").html(""); 
+    });
+
+    $("#password2").focus(function(){
+        $("#tip-password2").html("请注意保持两次输入的密码一致。");
+    });
+    $("#password2").blur(function(){
+        $("#tip-password2").html(""); 
+    });
+
+    $("#email").focus(function(){
+        $("#tip-email").html("请使用您最常用的邮箱。");
+    });
+    $("#email").blur(function(){
+        $("#tip-email").html(""); 
+    });   
+
+
+});
+</script>
+
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "myapp/css/signup.css" %}" />
+{% endblock%}
+
+
+{% block body %}
+
+    <div id="content">
+        <div id="logo">
+            <p>=￣ω￣= </p>
+        </div>
+
+        <!--  登录面板    -->
+        <div id="panel">
+            <!-- logo's name -->
+
+            <p id="logo-name">句 萌</p>
+
+            <!--  账号和密码组    -->
+            <form action="{% url 'myapp:signup-action' %}" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input class="txt_input" id="username" name="username" placeholder="用户名（区分大小写）">
+
+                    <p id="tip-username" class="tip grey"></p>
+                    <input class="txt_input" id="password1" name="password" placeholder="密码" type="password">
+                    <p id="tip-password1" class="tip grey"></p>
+                    <input class="txt_input" id="password2" name="password" placeholder="再输入一次密码" type="password">
+                    <p id="tip-password2" class="tip grey"></p>
+                    <input class="txt_input" id="email" name="email" placeholder="邮箱（不会公开，仅用于验证）">
+                    <p id="tip-email" class="tip grey"></p>
+
+
+                </div>
+                <!--  按钮组    -->
+
+                <div id="buttons">
+                        <a id="login" href="{% url 'myapp:login' %}" class="button icon approve big">已有账号？</a>
+                        <button id="signup" class="button icon user danger big">立即注册</button>
+                </div>
+                
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+

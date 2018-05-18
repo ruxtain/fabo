@@ -1,0 +1,34 @@
+{# 这个网页主要是放置用户关注的话题的一个概览 通过导航栏的按钮进入 #}
+{% extends "base.html" %}
+{% load my_filters %}
+{% load static %}
+
+{% block title %}话题 - 句萌{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static "myapp/css/topic.css" %}" />
+    <link rel="stylesheet" href="{% static "myapp/css/font-awesome.css" %}" />
+{% endblock %}
+
+
+{% block left_column %}
+
+
+
+{% if logged_in %}
+    {% for topic in user.profile.topics.all %}
+        <p>
+            <span><img class="topic_icon" src="{{ topic.topic_icon.url | url_adjustment }}"></span>
+            <span class="topic"><a href="{% url 'myapp:topic' topic.pk %}" target="_blank">{{ topic.topic_name }}</a></span>
+            <span>{{ topic.topic_text }}</span>
+        </p>
+        {% for article in topic.article_set.all %}
+            <p><a target="_blank" href="{% url 'myapp:article' article.pk %}">{{ article.title }}</a></p>
+        {% endfor %}
+    {% endfor %}
+{% else %} {# 未登录 #}
+    <p><a href="{% url 'myapp:login' %}">登录</a>后可以查看你所关注的话题~</p>
+{% endif %}
+
+{% endblock %}
+{% block right_column %}
+{% endblock %}

@@ -1,0 +1,235 @@
+/*按照自顶向下的顺序铺设*/
+
+/*通用*/
+p {
+    font-size: 16px;
+}
+
+hr.fence {
+    margin-top: -10px;
+}
+
+/* 文章的话题 */
+span.topic {
+    background-color:#eeeed1;
+    padding: 3px;
+    margin-left: 5px;
+    margin-right:5px;
+    color: #888;
+}
+
+/*句子本身 和 sentence 里面是一致的*/
+h1 {
+    font-family: sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+
+/*布局*/
+
+/*用于调节相对位置的一些东东*/
+.drop {
+    position: relative;
+    top: 30px;
+}
+
+.minor-drop {
+    position: relative;
+    top: 10px;
+}
+
+.right {
+    position: relative;
+    left: 20px;
+    width: 90%;
+    margin-left: 20px;
+}
+
+.left {
+    float: left;
+}
+
+/*thumb up 和 thumb down 的图标*/
+.thumb {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+}
+
+.up {
+    border-bottom: 15px solid #999999;
+
+}
+
+.down {
+    border-top: 15px solid #999999;
+}
+
+.up:hover {
+    cursor: pointer;
+}
+
+.down:hover {
+    cursor: pointer;
+}
+
+.count {
+    text-align: center;
+    font-family: Helvetica;
+}
+
+
+
+
+/* ************** 答者绍介 **************** */
+
+a.poster {
+    text-decoration: none;
+    color: #111;
+}
+
+a.poster:hover{
+    text-decoration: underline;
+}
+
+.nickname {
+    font-size: 15px;
+    font-family: helvetica;
+    color: #666;
+}
+
+.brief_intro {
+    font-size: 15px;
+    color: #999;
+}
+
+.name-intro {
+    position: relative;
+    top:-8px;
+}
+
+/* ************** 回答 **************** */
+p.answer-abstract {
+    font-size: 15px;
+}
+
+/*问题提交按钮*/
+#post-button {
+    position: relative;
+    left:429px;
+    bottom:5.5px;
+    border-top-right-radius: 0px;
+
+}
+
+
+
+/* ************** 问题页面 正式开始 **************** */
+
+
+/*按照自顶向下的顺序铺设*/
+
+/*通用*/
+p {
+    font-size: 16px;
+}
+
+/*问题内容和描述*/
+
+#title {
+    font-family: Helvetica;
+    font-size: 22px;
+}
+
+#description {
+    position: relative;
+}
+
+
+/*回答者的头像*/
+.avatar {
+    width:30px;
+    height: 30px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;    
+}
+
+
+/*辅助文字*/
+.brand {
+    font-size: 18px;
+    color: #335533;
+}
+
+/* 发布时间 */
+span.datetime {
+    font-family: verdana;
+    font-size: 13px;
+    color: #aaa;
+}
+
+/*编辑器*/
+#editor {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    outline: none; /* 选中后不再高亮输入框 */
+    font-size: 16.5px;
+    border:solid 1px #bbb;
+    width: 96.5%;
+    height: 200px;
+    padding: 10px;
+    resize: none;
+}
+
+/*问题提交按钮*/
+#post-button {
+    position: relative;
+    bottom:6px;
+    left: 0px;
+    border-top-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+/*问题的编辑和删除*/
+
+#q_edit {
+}
+#q_del {
+    padding-left: 10px;
+}
+
+.q_manage {
+    color: #989898;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/*回答的编辑和删除*/
+/*没有评论时可以删除，有评论时就不能删除*/
+.a_manage {
+    color: #989898;
+    font-size: 12.5px;
+    cursor: pointer; 
+}
+
+#a_edit:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

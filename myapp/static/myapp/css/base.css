@@ -1,0 +1,372 @@
+/*基本的框架*/
+
+
+/* 基调色：#b5d862, #e5f93a*/
+
+html {
+
+}
+
+body {
+	font-size: 18px;
+	width: 100%;
+    margin: 0 auto;
+	background-color: #fffffd;
+	font-family: Helvetica,Arial,Sans-serif;
+}
+
+img {
+    max-width: 100%;
+} 
+
+::selection{color:#fff;background:#b5d862;}
+::-moz-selection{color:#fff;background:#b5d862;}
+::-webkit-selection{color:#fff;background:#b5d862;}
+
+/*======================= 总体布局 ==========================*/
+
+/*分栏*/
+/*记住了！div居中是容器设置margin 0 auto，内外div都设置宽度*/
+#wrapper {
+    width: 1000px;
+    margin: 0 auto; 
+}
+
+/*把左右栏一样的样式都放一起*/
+section.column {
+    background-color: #fff;
+    box-shadow: #bbb 0px 0px 5px;
+    -webkit-box-shadow: #bbb 0px 0px 5px;
+    -moz-box-shadow: #bbb 0px 0px 5px;
+    margin-top: 60px;
+    float: left;
+}
+
+#left_column {
+    width: 600px;
+    margin-left: 7px;
+    padding: 40px;
+    padding-bottom: 100px; /* 留点空白，好让用户把最底下的内容往上滚动一点 */
+}
+ 
+#right_column {
+    width: 220px;
+    margin-left:7px;
+    padding: 40px 35px 40px 35px;
+}
+
+/*======================= 细节设定 ==========================*/
+
+
+/*话题小黄色按钮的样式要统一，让人一看就是知道是话题*/
+.topic {
+	font-family: Helvetica;
+    background-color:#eeeed1;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 5px;
+    margin-right:5px;
+    font-size: 16px;
+}
+
+/*超链接的样式统一下*/
+a {
+	color: #333;
+	text-decoration: none;
+}
+
+a: link{
+	text-decoration: none;
+	color: #333;
+}
+a:hover{
+	text-decoration: none;
+	color: #333;
+
+}
+a:active{
+	text-decoration: none;
+	color: #a33;
+}
+a:visited {
+	text-decoration: none;
+	color: #333;
+
+}
+
+/*分割线的样式*/
+hr {
+	background-color: #ddd;
+	border: none;
+	height: 1px;
+}
+
+/*对于两个截然不同的界面，用粗点的线来分割*/
+hr.boundary {
+	background-color: #ccc;
+	border: none;
+	height: 1px;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+}
+
+/*======================= 导航栏 ==========================*/
+/*导航栏*/
+
+#nav-wrapper {
+    position: fixed;
+    margin: 0 auto;
+    width: 100%;
+    background: url("../img/navbar.png");
+    z-index: 3;
+}
+
+nav {
+	margin:auto;
+	left:0;
+	top:0;
+    margin: 0 auto;
+    font-size: 18px;
+	width: 1000px;
+	height: 50px; /* 导航栏的宽度还是整硬杂点 */
+    line-height: 50px;
+}
+
+
+/*logo*/
+#logo {
+    position: relative;
+    top: 10px;
+    width: 90px;
+    float: left;
+    display: block;
+    transition: opacity 1s; /*不考虑兼容性，落后的浏览器不配用酷炫的特效*/
+}
+
+#logo:hover {
+    opacity: 0.5;
+}
+
+/* 搜索栏 */
+
+#search {
+    float: left;
+    padding: 0 30px 0 30px;
+}
+
+#search input[type="text"] {
+	background: url("../img/search.png") no-repeat 10px 9px #fffffd;
+    border: 0 none;
+    width: 220px;
+    font: bold 15px Arial,Helvetica,Sans-serif;
+    color: #010101; /* 文字颜色 */
+    padding: 7px 15px 7px 35px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+    outline: none;
+}
+
+a.nav {
+    padding: 16px 12px 15px 12px;
+    color: #333;
+    font-family: Helvetica;
+}
+
+a.nav:link {
+    text-decoration: none;
+    color: #333;
+}
+
+
+a.nav:hover {
+    opacity: 0.9;
+    /*颜色渐变，只支持IE10和其他正常的浏览器*/
+    background: -webkit-linear-gradient(#b5d862, #e5f93a, #b5d862); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#b5d862, #e5f93a, #b5d862); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#b5d862, #e5f93a, #b5d862); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#b5d862, #e5f93a, #b5d862); /* 标准的语法（必须放在最后） */
+}
+
+/* 整体： 下拉框 头像和昵称也在里面*/
+
+
+#dropdown {
+    position: relative;
+    left: 780px;
+    top: -50px;
+    width: 120px;
+}
+
+/*头像和名字*/
+#user-menu { /*it's the <a> but looks like a div */
+    text-decoration: none;
+    position: relative;
+    display: block;
+    width: 120px;
+    height: 50px;
+    line-height: 50px;
+}
+
+#avatar {
+    border-radius: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 10px;
+    left: 5px;
+}
+
+#name-holder {
+    position: relative;
+    left: 8px;
+    width: 75px;
+    height: 50px;
+    line-height: 50px;
+    display: inline;
+    text-align: center;
+    overflow: hidden;    
+    text-overflow: ellipsis; /* 厉害了我的哥，直接可以省略号 主要要和 overflow:hidden 并用*/   
+}
+
+#nickname {
+    position: relative;
+    font-family: Georgia, Helvetica;
+    font-size: 15px !important;
+}
+
+#dropdown ul{   
+    /*background-color: green;*/
+    list-style-type:none;               
+	font-size: 18px;
+    display:none;        
+	width: 120px; /*表示和所属的div一样宽*/
+    position: relative;
+    right: 40px; /* 必须从右边，因为ul的点虽然可以隐形，但是本质上去不掉，而不同浏览器可能导致对不齐 */
+    top: -19px;
+}    
+
+#dropdown li {
+    text-align: center;
+    height: 29px;
+    line-height: 29px;
+    background: url("../img/dropdown.jpg");   
+} 
+
+/*从隐藏到显示*/
+#dropdown:hover ul{       
+    display:block;  
+}      
+
+#dropdown:hover #user-menu {
+    background: -webkit-linear-gradient(#b5d862, #e5f93a); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#b5d862, #e5f93a); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#b5d862, #e5f93a); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#b5d862, #e5f93a); /* 标准的语法（必须放在最后） */    
+}
+
+#dropdown li:hover {
+    background: none; /*不懂为什么，但是必须先去掉之前的background才能换色*/
+    background: -webkit-linear-gradient(#e5f93a, #b5d862); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#e5f93a, #b5d862); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#e5f93a, #b5d862); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#e5f93a, #b5d862); /* 标准的语法（必须放在最后） */
+}
+
+/*最底下的圆边 logout 登录的人； signup 没登录的人 */
+#logout {
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+#signup {
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+/*======================= 右侧世界 ==========================*/
+/* rs as in 'right side'  */
+.rs {
+	font-size: 15px;
+	font-family: 宋体, Helvetica;
+	color: #555;
+}
+
+.rs a {
+    padding: 8px;
+}
+.rs a:hover {
+    background-color: #e0fde0;
+}
+
+/*快速导航几个字*/
+.rs-title {
+    color: #85a832;
+    font-size: 18px;
+}
+/*icon 不可以设置 position: relative 会zhi'd*/
+img.rs-icon {
+    width: 20px;
+}
+
+span.rs-guide {
+    position: relative;
+    top: -4px;
+}
+
+/*右侧图片*/
+img.rs {
+	max-width: 100%;
+	border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+}
+
+
+/*右侧的世界*/
+p.rs {
+	line-height: 22px;
+}
+
+p.copyright {
+    color: #999;
+    font-family: Helvetica;
+    font-size: 14px;
+    text-align: right;
+}
+
+
+/* 右下角 corner*/
+#corner {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+}
+
+/*======================= 回到顶端 ==========================*/
+
+
+#goTop {
+    display: none;
+    position: fixed;
+    opacity: 0.8;
+    transition: opacity 0.5s;
+    bottom: 100px;
+}
+
+#goTop:hover {
+    opacity: 1;
+}
+
+
+

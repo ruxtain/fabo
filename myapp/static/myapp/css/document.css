@@ -1,0 +1,91 @@
+/*左右分栏*/
+.parts-wrapper {
+    margin: 0 auto;
+}
+.left-part {
+    padding-left: 60px;
+    float: left;
+    height: 250px;
+    width: 280px;
+}
+.right-part {
+    float: left;
+    height: 300px;
+    width: 250px; 
+}
+
+/*文字格式化*/
+
+h1 {
+    font-size: 24px;
+    font-family: Helvetica;
+    font-weight: 300;
+    text-align: center;
+}
+
+p.label1 {
+    margin-top: -15px;
+    font-size: 15px;
+    color: #aaa;
+    text-align: center;
+    font-style: italic;
+}
+
+p.logo {
+    text-align: center;
+}
+
+
+
+/*block 里面的文字*/
+.extra-block {
+    border: solid 1px #fff;
+    width: 200px;
+    transition: box-shadow 0.5s;
+}
+.extra-block h2:hover {
+    text-decoration: underline;
+    opacity: 0.6;
+}
+
+h2 {
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+/*附随在h2下面的文字*/
+
+p.label2 {
+    margin-left: 20px;
+    margin-top: -10px;
+    font-size: 15px;
+    color: #bbb;
+    font-style: italic;
+}
+
+.brand {
+    font-size: 18px;
+    color: #335533;
+}
+
+p.indent {
+    font-family: 宋体;
+    text-indent: 2em;
+}
+
+ol li {
+    font-family: 宋体;
+    font-size: 16px;
+    margin-left: 4em;
+    margin-right: 4em;
+    padding-bottom: 1em;
+}
+a.aqua {
+    font-family: Helvetica;
+    padding: 5px;
+
+}
+a.aqua:hover {
+    background-color: #DFEFFF;
+}
+

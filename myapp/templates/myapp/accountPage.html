@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load my_filters %}
+{% load static %}
+{% block title %}{{ user.profile.nickname }} - 句萌{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static "myapp/css/account.css" %}" />
+{% endblock %}
+
+
+{% block left_column %}
+
+    <p>本页面用于修改密码、验证等，暂时不写</p>
+
+{% endblock %}
+
+
+{% block right_column %}
+<div class="pic_frame">
+    <img src="{% static "myapp/img/aside.jpg" %}" alt="" />
+</div>
+    <p>This site is cool and you know it.</p>
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load my_filters %}
+{% load static %}
+{% block title %}编辑个人资料 - 句萌{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "myapp/css/settings.css" %}" />
+{% endblock %}
+
+
+{% block left_column %}
+
+<section id="user-info">
+
+<p>
+    <span>编辑个人资料</span>
+    <a href="{% url 'myapp:profile' user.username %}" id="back" class="button icon arrowleft">返回个人资料</a>
+
+</p>
+
+<hr />
+
+<form id="form1" action="{% url 'myapp:settings-action' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type='file' name="avatar" id="hidden-upload-button" />
+    <img id="preview-avatar" src="{{ user.profile.get_avatar_url | url_adjustment }}" alt="your image" />
+
+
+<p id="upload-button" class="button icon settings big">选择图片</p>
+
+<hr />
+
+<p>
+    <span class="label">昵称</span>
+    <input name="nickname" class="input-frame" type="text" value="{{ user.profile.nickname }}"/>
+</p>
+
+<p >
+    <span class="label">性别</span>
+    <span id="radio">
+        {% if user.profile.gender == "女" %}
+            <input name="gender" type="radio" value="女" checked="true" />女&nbsp;&nbsp;
+            <input name="gender" type="radio" value="男" />男
+        {% else %}
+            <input name="gender" type="radio" value="女" />女&nbsp;&nbsp;
+            <input name="gender" type="radio" value="男" checked="true" />男
+        {% endif %}
+    </span>
+</p>
+
+<p>
+    <span class="label">英文全名</span>
+    <input id="first_name" name="first_name" class="input-frame" type="text" value="{{ user.first_name }}"/>
+    <input id="last_name" name="last_name" class="input-frame" type="text" value="{{ user.last_name }}"/>
+</p>
+<p>
+    <span class="label">极简介绍</span>
+    <input id="brief_intro" name="brief_intro" class="input-frame" type="text" value="{{ user.profile.brief_intro }}"/>
+</p>
+
+<p>
+    <span class="label">居住地</span>
+    <input name="location" class="input-frame" type="text" value="{{ user.profile.location }}"/>
+</p>
+
+<p >
+    <span class="label">情感状态</span>
+    <span id="radio">
+        {% if user.profile.status == "比翼鸟" %}
+            <input name="status" type="radio" value="保密"  />保密&nbsp;&nbsp;
+            <input name="status" type="radio" value="单身狗" />单身狗&nbsp;&nbsp;
+            <input name="status" type="radio" value="比翼鸟" checked="true" />比翼鸟
+        {% elif user.profile.status == "单身狗" %}
+            <input name="status" type="radio" value="保密"  />保密&nbsp;&nbsp;
+            <input name="status" type="radio" value="单身狗" checked="true" />单身狗&nbsp;&nbsp;
+            <input name="status" type="radio" value="比翼鸟"  />比翼鸟
+        {% else %}
+            <input name="status" type="radio" value="保密" checked="true" />保密&nbsp;&nbsp;
+            <input name="status" type="radio" value="单身狗"  />单身狗&nbsp;&nbsp;
+            <input name="status" type="radio" value="比翼鸟"  />比翼鸟
+        {% endif %}
+    </span>
+</p>
+<p>
+    <span class="label">我的母校</span>
+    <input name="education" class="input-frame" type="text" value="{{ user.profile.education }}"/>
+</p>
+<p>
+    <span class="label">自我描述</span>
+</p>
+    <textarea name="long_intro" class="input-frame"  id="long_intro" rows="3" maxlength="500">{{ user.profile.long_intro }}</textarea>
+
+<div id="buttons">
+    <a href="{% url 'myapp:profile' user.username %}" class="button danger icon remove big">取消修改</a>
+    <button id="save-change" class="button icon approve big">保存修改</button>
+</div>
+
+</form>
+
+
+
+</section>
+
+{% endblock %}
+
+
+{% block right_column %}
+{% endblock %}
+
+{% block footer %}
+<script type="text/javascript">
+// 值得注意的地方，jquery 的 document.ready 可以让js在页面加载完之后运行；
+// 所以可以放在 head 里，但是传统的js，还是建议放在尾部。
+function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#preview-avatar').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#hidden-upload-button").change(function(){
+    readURL(this);
+});
+
+$("#upload-button").click(function(){
+    $("#hidden-upload-button").click();
+});
+
+
+</script>
+{% endblock %}

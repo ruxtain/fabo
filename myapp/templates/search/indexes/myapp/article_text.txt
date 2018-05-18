@@ -1,0 +1,3 @@
+{{ object.branch.title }}
+{{ object.article_text }}
+{{ object.num }}

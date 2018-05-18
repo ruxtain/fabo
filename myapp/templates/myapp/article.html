@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load my_filters %}
+{% load static %}
+
+{% block title %}条文 - {{ article.branch.title }} 第{{ article.num }}条{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static "myapp/css/article.css" %}" />
+    <link rel="stylesheet" href="{% static "myapp/css/font-awesome.css" %}" />
+{% endblock %}
+
+{% block left_column %}
+
+{% for topic in topics %}
+    <span class="topic"><a target="_blank" href="{% url 'myapp:topic' topic.pk %}">{{ topic.topic_name }}</a></span>
+{% endfor %}
+  
+
+<div class="article-content"><span>《{{ article.branch.title }}》 </span>{{ article.article_text|safe }}</div>
+<hr />
+        <a class="helper" href="{% url 'myapp:branch' article.branch.pk  %}#{{ article.num }}">
+            <button class="button icon arrowleft big">回到全文</button>
+        </a>
+        <span id="comment-counter">{{ article.articlecomment_set.count }} 条评论</span>
+<hr />
+<p class="brand">评论区 · <span>恰同学少年，风华正茂；书生意气，挥斥方遒。</span></p>
+
+<form action="" method="post">
+{% csrf_token %}
+
+    <input name="question-title" class="question-title editor" placeholder="摘要" /><br/>
+    <textarea name="description" class="description editor" placeholder="内容"></textarea>
+    <button id="post-button" class="button icon big approve" >提交问题</button>
+
+</form>
+
+
+
+
+{% endblock %}
+{% block right_column %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load my_filters %}
+{% load static %}
+{% block title %}私信 - 句萌{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static "myapp/css/message.css" %}" />
+{% endblock %}
+
+{% block left_column %}
+<p>
+    <span id="title">私信</span>
+    <span><a href="{% url 'myapp:profile' addressee.username %}" class="right button icon arrowleft">返回用户资料</a></span>
+</p>
+
+<form method="POST" action="{% url 'myapp:message-action' %}">
+{% csrf_token %}
+<p>
+    <textarea id="editor" name="msg"></textarea>
+    <button class="button icon chat right" id="send">发送</button>
+    <script type="text/javascript">
+    $("#send").click(function(){
+        if($("#editor").text()==''){
+            alert('请不要发送空白内容~');
+            return false;
+        };
+    });
+    </script>
+</p>
+</form>
+<br />
+<hr />
+
+
+{% endblock %}

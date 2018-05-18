@@ -1,0 +1,4 @@
+{{ object.title }}
+{{ object.topics }}
+{{ object.chairman }}
+{{ object.pub_date }}

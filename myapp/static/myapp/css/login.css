@@ -1,0 +1,118 @@
+/*背景和整个网站一致，保持这个风格*/
+body{
+    background-color:#eee ;
+    font-size: 20px;
+}
+
+#content {
+    margin-top: 90px; /*整个content块需要和页顶保持一定距离*/
+}
+
+/*用于承载整个输入区域和按钮的控制板*/
+#panel {
+    /*这招只适合有固定宽度的元素居中*/
+    margin: auto;
+    background: #fff;
+    /*高度和宽度根据背景图片的大写设定，自带圆边效果 */
+    width: 403px;
+    height: 332px;
+    border-radius: 9px;
+    box-shadow: #999 0px 0px 9px;
+    -webkit-box-shadow: #999 0px 0px 9px;
+    -moz-box-shadow: #999 0px 0px 9px;
+}
+
+/*logo and stuff*/
+#logo {
+    font-size: 50px;
+    position: relative;
+    text-align: center;
+}
+
+#logo-name {
+    font-family: 宋体;
+    position: relative;
+    text-align: center;
+    top: 30px;
+    left: -10px;
+    font-size: 30px;
+}
+
+/*输入框*/
+.inputs {
+    position: relative;
+    left: 60px;
+    top:30px;
+}
+
+/* 抄袭别人的输入框样式 */
+input.txt_input {
+    display: block;
+    width: 160px;
+    height: 30px;
+    background-color: transparent;
+    border-radius: 3px;
+}
+input.txt_input{ border:1px solid #bbb; height:32px; margin-bottom:5px; width:359px; line-height:32px; padding:0 5px; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;  }
+input.txt_input:focus{ transition:border linear .2s,box-shadow linear .2s; -moz-transition:border linear .2s,-moz-box-shadow linear .2s; -webkit-transition:border linear .2s,-webkit-box-shadow linear .2s; outline:none;border-color:rgba(173,173,173.75); box-shadow:0 0 8px rgba(173,173,173,.5); -moz-box-shadow:0 0 8px rgba(173,173,173,.5); -webkit-box-shadow:0 0 8px rgba(173,173,173,3); border:1px solid #7cccec;}
+input.txt_input{ width:260px; height:36px; border:1px solid #cad2db; padding:0 5px; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; line-height:36px; margin-bottom:10px; font-size:14px; color:#717171; font-family:Arial;}
+input.txt_input:focus{ transition:border linear .2s,box-shadow linear .2s; -moz-transition:border linear .2s,-moz-box-shadow linear .2s; -webkit-transition:border linear .2s,-webkit-box-shadow linear .2s; outline:none;border-color:rgba(173,173,173.75); box-shadow:0 0 8px rgba(173,173,173,.5); -moz-box-shadow:0 0 8px rgba(173,173,173,.5); -webkit-box-shadow:0 0 8px rgba(173,173,173,3); border:1px solid #6192c8;}
+
+
+/*提示*/
+.red {
+    color: #a11;
+}
+.grey {
+    color:#333;
+}
+
+.green {
+    color:#1a1;
+}
+
+.tip {
+    font-size: 13px;
+    position: relative;
+    top: -4px;
+    height:10px;
+    display: block;
+    height: 13px;
+}
+
+
+/*辅助按钮*/
+
+#help {
+    position: relative;
+    top: 40px;
+    left: 80px;
+}
+
+#remember-label {
+    font-size: 15px;
+}
+
+#forgot {
+    font-size: 15px;
+    text-decoration: none;
+    color: #333;
+    position: relative;
+    left: 90px;
+}
+
+/*各种按钮*/
+#buttons {
+    position: relative;
+    left:80px;
+    top:25px;
+}
+
+#login {
+    margin-right: 10px;
+    width: 100px;
+}
+
+#signup {
+    width: 70px;
+}

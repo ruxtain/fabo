@@ -1,3 +1,5 @@
+# 对应 mac env2
+
 """
 Django settings for jumo project.
 

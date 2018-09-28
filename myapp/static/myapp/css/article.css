@@ -49,6 +49,16 @@ a.helper {
     font-size: 16px;
 }
 
+/*法条评论区*/
+.articlecomment {
+    padding: 5px;
+}
+
+/*单个法条评论*/
+.articlecomment {
+    
+}
+
 .brand {
     font-size: 18px;
     color: #335533;
@@ -117,7 +127,6 @@ p.answer-abstract {
     text-decoration: none;
     color: #222;
 }
-
 
 
 /* ************** 编辑器 **************** */

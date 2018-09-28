@@ -13,9 +13,10 @@
 {% for topic in topics %}
     <span class="topic"><a target="_blank" href="{% url 'myapp:topic' topic.pk %}">{{ topic.topic_name }}</a></span>
 {% endfor %}
-  
 
 <div class="article-content"><span>《{{ article.branch.title }}》 </span>{{ article.article_text|safe }}</div>
+
+
 <hr />
         <a class="helper" href="{% url 'myapp:branch' article.branch.pk  %}#{{ article.num }}">
             <button class="button icon arrowleft big">回到全文</button>
@@ -24,11 +25,19 @@
 <hr />
 <p class="brand">评论区 · <span>恰同学少年，风华正茂；书生意气，挥斥方遒。</span></p>
 
-<form action="" method="post">
+<div class="articlecomment_section">
+{% for comment in article.articlecomment_set.all %}
+<hr>
+<div class="articlecomment">{{ comment }}</div>
+{% endfor %}
+<br>
+</div>
+
+<form action="{% url 'myapp:article-comment-action' article.pk %}" method="post">
 {% csrf_token %}
 
     <input name="question-title" class="question-title editor" placeholder="摘要" /><br/>
-    <textarea name="description" class="description editor" placeholder="内容"></textarea>
+    <textarea name="comment" class="description editor" placeholder="内容"></textarea>
     <button id="post-button" class="button icon big approve" >提交问题</button>
 
 </form>

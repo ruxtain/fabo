@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==1.11"
+"beautifulsoup4" = "==4.6.0"
+django-haystack = "==2.6.0"
+elasticsearch = "==6.2.0"
+pillow = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"

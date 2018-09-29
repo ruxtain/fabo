@@ -48,7 +48,7 @@ class Profile(models.Model):
         if self.avatar and hasattr(self.avatar, 'url'):
             return self.avatar.url
         else:
-            return 'myapp/static/myapp/img/default.jpg'
+            return 'myapp/static/myapp/img/default.png'
     # 补充一点，直接用用户名作为个人主页的后缀。用户名不是隐私（类似百度的账号），而昵称用于对外显示，也不是隐私，只有邮箱是隐私。
 
 class Message(models.Model):

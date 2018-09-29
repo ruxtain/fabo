@@ -77,7 +77,7 @@ CKEDITOR.lang['zh-cn']={
         "dlgTitle":"关于句萌",
         "help":"衷心感谢您遵循句萌的惯例：",
         "moreInfo":"请您将问题写成一行，然后两次回车后继续写问题的描述。<br/>更多详情请点击下面的链接：<br/>",
-        "title":"句萌·帮助","userGuide":"Jumo 用户向导"},
+        "title":"句萌·帮助","userGuide":"fabo 用户向导"},
         "basicstyles":{
             "bold":"加粗",
             "italic":"倾斜",

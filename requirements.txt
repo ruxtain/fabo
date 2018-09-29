@@ -1,4 +1,0 @@
-Django==1.10.5
-beautifulsoup4==4.6.0
-django_haystack==2.6.0
-elasticsearch==6.2.0
